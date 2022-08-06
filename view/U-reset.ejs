@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Reset Password</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  </head>
+  <body>
+    <div>
+      <h2>Reset Password</h2>
+      <form>
+        Old Password : <input type="password" name="oldpass" />
+        <div class="password error"></div>
+        <br />
+        New Password : <input type="password" name="newpass" />
+        <div class="newpass error"></div>
+        <br />
+        New Confirm Password : <input type="password" name="newcpass" />
+        <div class="newcpass error"></div>
+        <br />
+        <button type="submit" value="submit">submit</button>
+      </form>
+    </div>
+    <script>
+      const form = document.querySelector("form");
+      form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        console.log(localStorage.getItem("token"));
+        
+        const data = {
+          oldpass : form.oldpass.value,
+          newpass : form.newpass.value,
+          newcpass : form.newcpass.value
+        }
+        axios.post("http://localhost:9999/reset",data,{
+          headers: { "authorization": localStorage.getItem("token") },
+        })
+          .then((response) => {
+            console.log(response);
+            if (response.status === 200) {
+              alert("your password is reset successfully");
+              window.location.replace("http://localhost:9999/login");
+            }
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      });
+    </script>
+  </body>
+</html>

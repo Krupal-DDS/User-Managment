@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+<body>
+    <div>
+        <h2>Login</h2>
+        <form>
+            UserEmail : <input type="email" name="email"><div class="email error"></div><br>
+            Password : <input type="password" name="password"><div class="password error"></div><br>
+            <div><button type="submit" value="submit">submit </button>
+            <button onclick="redirect(event)">forgot Password</button></div>            
+        </form>
+    </div>
+    <script> 
+    const redirect = () =>{
+      console.log('hellooooo');
+        event.preventDefault(); 
+        window.location.replace("http://localhost:9999/forgot"); 
+    }
+        const form = document.querySelector("form");       
+        form.addEventListener("submit", async (e) => {        
+          e.preventDefault();
+          const email = form.email.value;
+          const password = form.password.value;
+          
+            axios.post("http://localhost:9999/login", {             
+              email,password
+            }).then(async(response)=>{
+                console.log(response);              
+                if(response.status===200){
+                localStorage.setItem('token',JSON.stringify(response.data.token))
+                window.location.replace('http://localhost:9999/dash'); 
+               
+              }                                                 
+            }).catch((response)=>{
+              console.log(response.message,"response");
+            })
+        });
+      </script>     
+</body>
+</html>

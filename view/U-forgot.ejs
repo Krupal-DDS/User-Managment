@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>forgot Password</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+<body>
+    <div>
+      <div id="userid" style="display:none"=><%= id %></div>
+    <h2>User Verified Successfully</h2>
+    <form>
+    New Password : <input type="text" name="newpass" required><br><br>
+    confirm New Password : <input type="password" name="cnewpass"><br><br>
+    <button type="submit" value="submit">Submit</button> 
+    </form>   
+</div>
+<script>
+    const form = document.querySelector("form");       
+        form.addEventListener("submit",async (e)=>{
+            e.preventDefault();
+            const newpass = form.newpass.value;
+            const cnewpass = form.cnewpass.value;                     
+        console.log(document.getElementById("userid").innerHTML);
+            axios.post("http://localhost:9999/forgot/"+ document.getElementById("userid").innerHTML, {
+            newpass,cnewpass
+          })   
+          .then((response) => {
+            console.log(response);
+            if(response.status===200){
+              alert('New password set successfully');
+              window.location.replace('http://localhost:9999/login');
+            }
+          })
+          .catch((response) => {
+            console.log(response.message, "response");
+          });         
+        })        
+</script>
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard</title>
+  </head>
+  <body>
+    <div>
+      <h2>Jay Swaminarayan</h2>
+      <h3>Welcome to Our Family</h3>
+    <p>
+      Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ducimus
+      voluptate tenetur odio corrupti placeat quod doloribus, veritatis libero
+      porro, eum fugit non! Placeat possimus porro, consequatur magni modi
+      voluptatem accusamus in expedita id, praesentium consequuntur velit
+      eligendi dignissimos impedit inventore deleniti suscipit natus omnis.
+      Officia libero unde quisquam repudiandae exercitationem?
+    </p>
+    <button onclick="logout()">Logout</button>
+    <button onclick="submit()">Reset Password</button></div>
+</div>    
+    <%- include('./partials/footer.ejs') %>
+    <script>
+      const logout = () =>{      
+      event.preventDefault(); 
+      alert('Logout successfully');
+      localStorage.removeItem("token");
+      window.location.href =  "http://localhost:9999/login";       
+    }
+       
+        const submit = ()=>{
+            window.location.href = "http://localhost:9999/reset";
+        }
+    </script>
+  </body>
+</html>
